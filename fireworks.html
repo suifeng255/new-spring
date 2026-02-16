@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>烟花庆祝页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000;
+            overflow: hidden;
+            height: 100vh;
+            font-family: "Microsoft YaHei", sans-serif;
+            cursor: pointer;
+        }
+        /* 烟花画布样式：绝对定位铺满整个页面，层级1 */
+        #fireworksCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        /* 祝福语样式：绝对定位、白色文字、发光文字阴影、初始透明且缩放为0 */
+        .blessing {
+            position: absolute;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff85a2, 0 0 30px #ffc0cb;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s ease-out, transform 0.8s ease;
+            transform: scale(0);
+        }
+        /* 底部跳转按钮样式：这里觉得文字和黑色背景对比度不好，AI改半天也效果不好，所以就这样了 */
+        .next-page-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            z-index: 3;
+            cursor: pointer;
+            /* 文字渐变背景 */
+            background: linear-gradient(to right, #585466, #6e6a7a, #585466);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            /* 视觉效果滤镜 ，这里是啥效果我也不知道，反正是个滤镜 */
+            filter: blur(0.9px) contrast(0.85) brightness(0.9) saturate(0.7);
+            text-shadow: 0 0 10px rgba(68, 64, 78, 0.2), 0 0 20px rgba(48, 45, 56, 0.1);
+            /* 响应式字体大小 */
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            /* 清除默认按钮样式 */
+            background-color: transparent;
+            border: none;
+            outline: none;
+            /* 过渡动画 */
+            transition: all 0.5s ease-in-out;
+        }
+        /* 按钮悬停效果：轻微缩放、滤镜参数调整 */
+        .next-page-btn:hover {
+            transform: translateX(-50%) scale(1.08);
+            filter: blur(0.7px) contrast(0.9) brightness(0.95) saturate(0.8);
+            text-shadow: 0 0 12px rgba(78, 74, 88, 0.3), 0 0 22px rgba(58, 55, 66, 0.15);
+        }
+
+        /* 音频授权提示样式：这里文字提示没有交互，其实播放烟花音效的绑定权限写在点击屏幕里了 */
+        .audio-tip {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 24px;
+            text-shadow: 0 0 10px #fff;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 40px;
+            border-radius: 10px;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        /* 提示框隐藏状态：透明、无法点击 */
+        .audio-tip.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 烟花绘制画布 canvas是HTML5新增元素，用于绘制图形，用来使用js绘制烟花 -->
+    <canvas id="fireworksCanvas"></canvas>
+    <div class="audio-tip" id="audioTip">点击屏幕任意位置发射烟花 🎆</div>
+    <div class="next-page-btn" id="nextPageBtn">点击继续旅行</div>
+    <script src="jsp/firework.js"></script>
+</body>
+
+</html>

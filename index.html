@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 视口设置：适配移动端，禁止缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>新春旅行 · 甲辰龙年</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", 微软雅黑, "SimHei", 黑体, "STKaiti", 楷体, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #d92121 0%, #c11e1e 50%, #a81a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            overflow-x: hidden;
+            touch-action: manipulation; /* 优化移动端触摸行为，防止双击缩放 */
+        }
+        /*中心盒子*/
+        /*使用clamp函数可以根据视口宽度动态调整边框的宽度，使得在不同设备（如手机、平板、电脑）上都能保持良好的视觉效果。*/
+        .main-container {
+            background-color: #f5eedc; /* 米黄色背景 */
+            border: clamp(2px, 1vw, 3px) solid #ffd700;
+            border-radius: clamp(15px, 3vw, 20px);
+            padding: clamp(20px, 5vw, 40px) clamp(30px, 7vw, 60px);
+            width: 95%;
+            max-width: 800px; 
+            box-shadow: 0 clamp(5px, 2vw, 10px) clamp(15px, 4vw, 30px) rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            margin-bottom: clamp(30px, 6vw, 50px);
+        }
+        /* 隐藏核心容器的类 */
+        /* 在js中流出控制的idsplay属性，可以交互以隐藏核心容器 */
+        .main-container.hidden {
+            display: none;
+        }
+        .travel-btn {
+            background: linear-gradient(90deg, #e62b2b 0%, #d92121 50%, #e62b2b 100%);
+            border: clamp(1.5px, 0.8vw, 2px) solid #ffd700;
+            border-radius: 50px;
+            padding: clamp(10px, 3vw, 15px) clamp(30px, 8vw, 60px);
+            font-size: clamp(24px, 6vw, 42px);
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(10px, 3vw, 20px);
+            box-shadow: 0 clamp(3px, 1vw, 5px) 0 #a81a1a;
+            transition: all 0.2s ease;
+            user-select: none; /* 禁止文字选中 */
+            margin-bottom: clamp(15px, 3vw, 20px);
+            -webkit-tap-highlight-color: transparent; /* 去除移动端点击高亮 */
+            touch-action: manipulation; /* 优化触摸行为 */
+        }
+        /* 按钮覆盖状态：轻微上移，阴影放大，其实只在电脑端效果明显*/
+        .travel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 clamp(4px, 1.5vw, 7px) 0 #a81a1a;
+        }
+        /* 按钮活跃状态：轻微下移，阴影缩小 */
+        .travel-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 clamp(2px, 0.8vw, 3px) 0 #a81a1a;
+        }
+        /* 按钮内图标样式：响应式大小，将在按钮中的图标适配手机 */
+        .travel-btn .icon {
+            font-size: clamp(22px, 5vw, 36px);
+        }
+        /* 提示文字样式*/
+        .hint-text {
+            color: #d92121;
+            font-size: clamp(16px, 3vw, 20px);
+            margin-bottom: clamp(20px, 4vw, 30px);
+            font-style: italic; /* 斜体 */
+        }
+        /*与旅行者交流的字*/
+        .talk-text {
+            color: #ffd700;
+            font-size: clamp(18px, 4vw, 28px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(8px, 2vw, 15px);
+            font-weight: bold; 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            flex-wrap: wrap; /* 移动端自动换行，放置超出手机边框而遮挡 */
+        }
+        /* 包括旅行者文字的星星图标样式 */
+        .talk-text .star {
+            color: #fff9c4;
+            font-size: clamp(16px, 3vw, 22px);
+        }
+        /* 年份动画区域样式（初始隐藏）*/
+        .animation-container {
+            background-color: #f5eedc;
+            border: clamp(2px, 1vw, 3px) solid #ffd700;
+            border-radius: clamp(15px, 3vw, 20px);
+            padding: clamp(20px, 5vw, 40px);
+            width: 95%; 
+            max-width: 700px;
+            text-align: center;
+            display: none; 
+            box-shadow: 0 clamp(5px, 2vw, 10px) clamp(15px, 4vw, 30px) rgba(0, 0, 0, 0.3);
+            margin-bottom: clamp(20px, 4vw, 30px); 
+        }
+        /* 显示动画区域的类：在js中有add(show)类，实现动画效果, */
+        .animation-container.show {
+            display: block;
+            animation: fadeInUp 0.8s ease; /* 淡入上移动画 */
+        }
+        /* 淡入上移动画关键帧 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0; /* 初始透明 */
+                transform: translateY(30px); /* 初始下移30px */
+            }
+
+            to {
+                opacity: 1; /* 完全不透明 */
+                transform: translateY(0); /* 回到原位置 */
+            }
+        }
+        /* 动画区域标题样式 */
+        .modal-title {
+            font-size: clamp(24px, 5vw, 36px);
+            color: #d92121; 
+            margin-bottom: clamp(15px, 3vw, 25px);
+            font-weight: bold;
+        }
+        /*年份时间线样式*/
+        .year-timeline {
+            font-size: clamp(36px, 9vw, 64px);
+            font-weight: bold;
+            color: #d92121;
+            margin: clamp(20px, 4vw, 30px) 0;
+            height: clamp(48px, 11vw, 80px); 
+            line-height: clamp(48px, 11vw, 80px); /* 行高等于高度，垂直居中 */
+            overflow: hidden;
+            position: relative;
+        }
+        /* 年份文字闪光效果伪元素 ,可以在年份出现后进行，相当于一个特效，这里使闪光*/
+        .year-timeline::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            /* 渐变遮罩：实现闪光效果 */
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            animation: shine 1s infinite linear; /* 无限循环闪光动画 */
+        }
+        /* 闪光动画关键帧 */
+        @keyframes shine {
+            to {
+                left: 100%;
+            }
+        }
+        /*天干地支信息样式*/
+        .tiandi-info {
+            margin-top: clamp(15px, 3vw, 25px);
+            font-size: clamp(24px, 6vw, 42px);
+            color: #d92121;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        /* 显示天干地支信息的类：同上 */
+        .tiandi-info.show {
+            opacity: 1; 
+            transform: translateY(0);
+        }
+        /* 生肖信息样式 */
+        .shengxiao-info {
+            margin-top: clamp(10px, 3vw, 20px);
+            font-size: clamp(22px, 5.5vw, 38px);
+            color: #d92121;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.5s;
+            font-weight: bold;
+        }
+        /* 显示生肖信息的类 ：同上*/
+        .shengxiao-info.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下一个目的地样式*/
+        .next-destination {
+            margin-top: clamp(20px, 4vw, 30px);
+            font-size: clamp(20px, 5vw, 32px); 
+            color: #ffd700; 
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.8s;
+            font-weight: bold; 
+            text-decoration: underline; 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            -webkit-tap-highlight-color: transparent; /* 去除移动端点击高亮 */
+            touch-action: manipulation; /* 优化触摸行为 */
+        }
+        /* 显示下一个目的地的类 :同上*/
+        .next-destination.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* 目的地文字覆盖后：文字变蓝色 */
+        .next-destination:hover {
+            color: #23a8fa;
+        }
+        /* ==================== 移动端横屏适配 ==================== */
+        @media screen and (orientation: landscape) and (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .main-container, .animation-container {
+                width: 90%;
+                padding: 15px 20px;
+                margin-bottom: 20px;
+            }
+            .travel-btn {
+                padding: 8px 30px;
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="travel-btn" id="travelBtn">
+            <span class="icon">🏮</span>
+            开始旅行
+            <span class="icon">🧧</span>
+        </div>
+        <div class="hint-text">点击上方按钮 · 展开新春时间线</div>
+        <div class="talk-text">
+            <span class="star">⭐</span>
+            你好旅行者，准备好开始旅行了吗？
+            <span class="star">⭐</span>
+        </div>
+    </div>
+    <!-- 年份动画区域：初始隐藏，显示年份滚动和生肖信息 -->
+    <div class="animation-container" id="animationContainer">
+        <h3 class="modal-title">新春纪年 · 辞旧迎新</h3>
+        <div class="year-timeline" id="yearTimeline">2024</div>
+        <div class="tiandi-info" id="tiandiInfo">甲辰年</div>
+        <div class="shengxiao-info" id="shengxiaoInfo">龙年</div>
+        <div class="next-destination" id="nextDestination">河北严查烟花爆竹，点击这里放电子烟花！</div>
+    </div>
+
+    <script>
+        const CONFIG = {
+            targetYear: 2026,        // 时间线滚动的目标年份
+            startYear: 2005,         // 时间线滚动的起始年份
+            shengxiao: "马",            // 目标年份对应的生肖
+            tiandi: "丙午", // 目标年份的天干地支
+            jumpLink: "fireworks.html" // 点击目的地跳转的链接
+        };
+        const mainContainer = document.querySelector('.main-container');
+        const travelBtn = document.getElementById('travelBtn');
+        const animationContainer = document.getElementById('animationContainer');
+        const yearTimeline = document.getElementById('yearTimeline');
+        const tiandiInfo = document.getElementById('tiandiInfo');
+        const shengxiaoInfo = document.getElementById('shengxiaoInfo');
+        const nextDestination = document.getElementById('nextDestination');
+
+        // 标记是否已经点击过按钮（防止重复触发）
+        let isClicked = false;
+
+        /**
+         * 绑定多事件函数（兼容点击和触摸事件）
+         * 一次性为一个元素绑定多个事件监听器，可以同时监听多个事件,
+         * @param {HTMLElement} element - 绑定事件的元素
+         * @param {string} eventNames - 事件名（空格分隔）
+         * @param {Function} handler - 事件处理函数
+         */
+        function bindMultiEvent(element, eventNames, handler) {
+            const events = eventNames.split(' '); // 分割事件名
+            events.forEach(event => element.addEventListener(event, handler)); // 逐个绑定
+        }
+        // 点击/触摸开始旅行按钮：触发年份滚动动画
+        bindMultiEvent(travelBtn, 'click touchstart', (e) => {
+            e.preventDefault(); // 阻止触摸事件默认行为（防止页面滚动）
+            if (isClicked) return; // 已点击过则返回，防止重复触发
+            isClicked = true; // 标记为已点击
+
+            mainContainer.classList.add('hidden'); // 隐藏核心容器
+            animationContainer.classList.add('show'); // 显示动画区域
+            animateYearScroll(); // 执行年份滚动动画
+        });
+
+        // 点击/触摸下一个目的地：跳转链接
+        bindMultiEvent(nextDestination, 'click touchstart', (e) => {
+            e.preventDefault(); // 阻止默认行为
+            window.location.href = CONFIG.jumpLink; // 跳转到配置的链接
+        });
+        /**
+         * 年份滚动动画函数
+         * 从起始年份滚动到目标年份，到达后显示生肖/周期/目的地信息
+         */
+        function animateYearScroll() {
+            let currentYear = CONFIG.startYear; // 当前显示的年份（初始为起始年份）
+            // 滚动速度：移动端（<=768px）50ms/次，桌面端80ms/次
+            const speed = window.innerWidth <= 768 ? 50 : 80; //三目运算
+            const increment = 1; // 步长
+            // 设置初始显示的年份
+            yearTimeline.textContent = currentYear;
+            // 年份滚动定时器
+            const yearInterval = setInterval(() => {
+                currentYear += increment; // 年份+1
+                yearTimeline.textContent = currentYear; // 更新显示的年份
+
+                // 到达目标年份时停止滚动
+                if (currentYear >= CONFIG.targetYear) {
+                    clearInterval(yearInterval); // 清除定时器
+                    yearTimeline.textContent = CONFIG.targetYear; // 确保显示目标年份
+
+                    // 更新生肖和天干地支文本
+                    tiandiInfo.textContent = `${CONFIG.tiandi}年`;
+                    shengxiaoInfo.textContent = `${CONFIG.shengxiao}年大吉`;
+
+                    // 延迟300ms显示生肖、周期、目的地（动画效果）
+                    setTimeout(() => {
+                        tiandiInfo.classList.add('show'); // 显示天地信息
+                        shengxiaoInfo.classList.add('show'); // 显示生肖信息
+                        nextDestination.classList.add('show'); // 显示下一个目的地
+                    }, 300);
+                }
+            }, speed);
+        }
+    </script>
+</body>
+
+</html>

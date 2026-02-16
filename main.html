@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>丙午马年 · 新春旅行终章</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 音乐选择弹窗 -->
+    <div class="music-modal" id="musicModal">
+        <div class="music-modal-content">
+            <h3 class="music-modal-title">是否选择播放音乐？</h3>
+            <div class="music-modal-buttons">
+                <button class="btn primary-btn" id="musicAgreeBtn">同意</button>
+                <button class="btn secondary-btn" id="musicRefuseBtn">拒绝</button>
+                <p>你可以在右上角随时关闭或启动音乐</p>
+            </div>
+        </div>
+    </div>
+    <!-- 音乐控制按钮（右上角） -->
+    <div class="music-control-btn" id="musicControlBtn">
+        🎵 播放音乐
+    </div>
+    <!-- 页面加载动画 -->
+    <div class="loader-container" id="loaderContainer">
+        <div class="loader">
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-dot"></div>
+            <div class="loader-text">加载新春祝福中...</div>
+        </div>
+    </div>
+
+    <!-- 页面头部 -->
+    <header class="header">
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <div class="year-logo">
+                <span class="year-text">2026</span>
+                <span class="zodiac-text">丙午马年</span>
+            </div>
+            <h1 class="main-title">新春旅行 · 马到成功</h1>
+            <p class="subtitle">愿你马年行大运，万事皆顺意</p>
+            <div class="header-btn">
+                <button class="btn primary-btn" id="scrollDownBtn">
+                    <i class="fas fa-chevron-down"></i>
+                    开启新春之旅
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+        <!-- 模块1：新春祝福 -->
+        <section class="blessing-section section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">🧧</span>
+                    新春祝福
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="blessing-container">
+                <div class="blessing-slider">
+                    <div class="blessing-slides" id="blessingSlides">
+                        <!-- 祝福卡片会通过JS动态生成 -->
+                    </div>
+                    <button class="slider-btn prev-btn" id="blessingPrevBtn">
+                        <i class="fas fa-angle-left"></i>
+                    </button>
+                    <button class="slider-btn next-btn" id="blessingNextBtn">
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                </div>
+                <div class="custom-blessing">
+                    <h3 class="custom-title">自定义祝福</h3>
+                    <textarea class="blessing-input" id="blessingInput" placeholder="输入你的新春祝福，点击生成卡片..."></textarea>
+                    <button class="btn secondary-btn" id="generateBlessingBtn">生成祝福卡片</button>
+                    <div class="custom-blessing-card" id="customBlessingCard"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模块2：马年运势 -->
+        <section class="fortune-section section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">🐴</span>
+                    马年生肖运势
+                </h2>
+                <p>由AI生成，仅供参考</p>
+                <div class="section-divider"></div>
+            </div>
+            <div class="fortune-container">
+                <div class="zodiac-selector">
+                    <div class="zodiac-tabs" id="zodiacTabs">
+                        <!-- 生肖标签通过JS生成 -->
+                    </div>
+                </div>
+                <div class="fortune-card" id="fortuneCard">
+                    <!-- 运势内容通过JS生成 -->
+                </div>
+                <div class="fortune-tips">
+                    <h3 class="tips-title">马年开运小贴士</h3>
+                    <ul class="tips-list" id="tipsList">
+                        <!-- 小贴士通过JS生成 -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模块3：新春小游戏（仅展示，点击跳转） -->
+        <section class="game-section section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">🎮</span>
+                    新春互动小游戏
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="game-container">
+                <!-- 游戏1：接红包 -->
+                <div class="game-card" id="redPacketGameCard">
+                    <h3 class="game-title">接红包</h3>
+                    <div class="game-preview">
+                        <img src="images/接红包.png" alt="接红包游戏预览" class="game-img">
+                    </div>
+                    <!-- 修改为跳转链接 -->
+                    <a href="game-redpacket.html" class="btn game-btn">开始游戏</a>
+                </div>
+
+                <!-- 游戏2：猜灯谜 -->
+                <div class="game-card" id="riddleGameCard">
+                    <h3 class="game-title">猜灯谜</h3>
+                    <div class="game-preview">
+                        <img src="images/猜灯谜.png" alt="猜灯谜游戏预览" class="game-img">
+                    </div>
+                    <!-- 修改为跳转链接 -->
+                    <a href="game-riddle.html" class="btn game-btn">开始游戏</a>
+                </div>
+
+                <!-- 游戏3：生肖消消乐 -->
+                <div class="game-card" id="matchGameCard">
+                    <h3 class="game-title">生肖消消乐</h3>
+                    <div class="game-preview">
+                        <img src="images/生肖消消乐.png" alt="生肖消消乐游戏预览" class="game-img">
+                    </div>
+                    <!-- 修改为跳转链接 -->
+                    <a href="game-match.html" class="btn game-btn">开始游戏</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页面底部 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-text">丙午马年 · 新春旅行</span>
+            </div>
+            <div class="footer-links">
+                <a href="about.html" class="footer-link">关于我们</a>
+                <a href="404.html" class="footer-link">联系方式</a>
+                <a href="404.html" class="footer-link">隐私政策</a>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2026 新春旅行 版权所有 | 马年大吉</p>
+            </div>
+            <div class="back-to-top" id="backToTop">
+                <i class="fas fa-chevron-up"></i>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 背景音乐元素 -->
+    <audio id="backgroundMusic" loop>
+        <source src="images/新春快乐.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <script src="jsp/script.js"></script>
+</body>
+
+</html>

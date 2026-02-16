@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- 1.移动端适配,控制页面宽度和屏幕比例相同-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Not Found</title>
+  <style>
+    /* 2.设置字体样式 + 页面整体居中 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      /* 核心：让内容垂直+水平居中 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* 垂直居中 */
+      align-items: center;     /* 水平居中 */
+      min-height: 100vh;       /* 占满整个屏幕高度 */
+      background-color: #f8f9fa; /* 浅灰背景，提升视觉舒适度 */
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px; /* 调整间距，更美观 */
+      color: #e74c3c; /* 404标题用醒目红色，符合常见设计 */
+    }
+
+    p {
+      margin-bottom: 15px; /* 段落间距 */
+      color: #555;
+    }
+
+    a:link {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold; /* 链接加粗，更显眼 */
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: darkturquoise;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>404 Not Found</h1>
+  <p>这里啥也没有，你来到了一片荒芜之地</p>
+  <p><a href="main.html">返回首页</a></p>
+</body>
+
+</html>

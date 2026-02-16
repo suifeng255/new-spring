@@ -1,0 +1,1424 @@
+/* ==================== 全局样式重置 ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei", 微软雅黑, "SimHei", 黑体, "STKaiti", 楷体, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: clamp(14px, 1vw, 16px);
+    /* 手机14px，电脑16px */
+}
+
+body {
+    background-color: #f8f5f0;
+    color: #333;
+    overflow-x: hidden;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==================== 音乐选择弹窗 ==================== */
+.music-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.music-modal-content {
+    background-color: #fff;
+    border-radius: clamp(10px, 2vw, 15px);
+    /* 手机10px，电脑15px */
+    padding: clamp(20px, 5vw, 40px);
+    /* 手机20px，电脑40px */
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: clamp(85%, 90vw, 400px);
+    /* 手机85%宽度，电脑400px */
+    width: 100%;
+}
+
+.music-modal-title {
+    font-size: clamp(18px, 3vw, 24px);
+    /* 手机18px，电脑24px */
+    color: #e67e22;
+    margin-bottom: clamp(20px, 4vw, 30px);
+    /* 手机20px，电脑30px */
+}
+
+.music-modal-buttons {
+    display: flex;
+    gap: clamp(10px, 2vw, 20px);
+    /* 手机10px，电脑20px */
+    justify-content: center;
+}
+
+/* 音乐控制按钮样式 */
+.music-control-btn {
+    position: fixed;
+    top: clamp(10px, 2vw, 20px);
+    /* 手机10px，电脑20px */
+    right: clamp(10px, 2vw, 20px);
+    /* 手机10px，电脑20px */
+    padding: clamp(6px, 1.5vw, 8px) clamp(12px, 2vw, 16px);
+    /* 手机6/12px，电脑8/16px */
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    cursor: pointer;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    font-size: clamp(12px, 1.5vw, 14px);
+    /* 手机12px，电脑14px */
+}
+
+.music-control-btn:hover {
+    background: #e9ecef;
+}
+
+.music-control-btn.paused {
+    color: #ff4444;
+}
+
+/* ==================== 通用样式 ==================== */
+/* 容器 */
+.container {
+    width: 100%;
+    max-width: clamp(320px, 90vw, 1200px);
+    /* 手机320px起步，电脑最大1200px */
+    margin: 0 auto;
+    padding: 0 clamp(10px, 2vw, 20px);
+    /* 手机10px，电脑20px */
+}
+
+/* 按钮样式 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(6px, 1vw, 8px);
+    /* 手机6px，电脑8px */
+    padding: clamp(6px, 2vw, 12px) clamp(12px, 3vw, 24px);
+    /* 手机6/12px，电脑12/24px */
+    border-radius: clamp(4px, 1vw, 8px);
+    /* 手机4px，电脑8px */
+    font-size: clamp(12px, 1.5vw, 16px);
+    /* 手机12px，电脑16px */
+    font-weight: 600;
+    transition: all 0.3s ease;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.primary-btn {
+    background: linear-gradient(90deg, #e67e22, #d35400);
+    color: #fff;
+    box-shadow: 0 clamp(2px, 1vw, 4px) clamp(8px, 2vw, 12px) rgba(230, 126, 34, 0.3);
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 clamp(4px, 1.5vw, 6px) clamp(10px, 2.5vw, 16px) rgba(230, 126, 34, 0.4);
+}
+
+.primary-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 clamp(1px, 0.5vw, 2px) clamp(6px, 1.5vw, 8px) rgba(230, 126, 34, 0.2);
+}
+
+.secondary-btn {
+    background: linear-gradient(90deg, #f1c40f, #f39c12);
+    color: #e67e22;
+    box-shadow: 0 clamp(2px, 1vw, 4px) clamp(8px, 2vw, 12px) rgba(241, 196, 15, 0.3);
+}
+
+.secondary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 clamp(4px, 1.5vw, 6px) clamp(10px, 2.5vw, 16px) rgba(241, 196, 15, 0.4);
+}
+
+.secondary-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 clamp(1px, 0.5vw, 2px) clamp(6px, 1.5vw, 8px) rgba(241, 196, 15, 0.2);
+}
+
+/* 节区通用样式 */
+.section {
+    padding: clamp(30px, 8vw, 80px) 0;
+    /* 手机30px，电脑80px */
+    width: 100%;
+    min-height: clamp(80vh, 100vh, 100vh);
+    /* 手机最小80vh，电脑100vh */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: clamp(20px, 6vw, 60px);
+    /* 手机20px，电脑60px */
+}
+
+.section-title {
+    font-size: clamp(18px, 4vw, 36px);
+    /* 手机18px，电脑36px */
+    color: #e67e22;
+    margin-bottom: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(6px, 1.5vw, 12px);
+    /* 手机6px，电脑12px */
+}
+
+.title-icon {
+    font-size: clamp(20px, 4.5vw, 40px);
+    /* 手机20px，电脑40px */
+}
+
+.section-divider {
+    width: clamp(60px, 15vw, 150px);
+    /* 手机60px，电脑150px */
+    height: clamp(2px, 0.5vw, 5px);
+    /* 手机2px，电脑5px */
+    background: linear-gradient(90deg, #e67e22, #f1c40f);
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+/* 加载动画 */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loader-container.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+}
+
+.loader-dot {
+    width: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    height: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    border-radius: 50%;
+    background-color: #e67e22;
+    display: inline-block;
+    margin: 0 clamp(3px, 1vw, 5px);
+    /* 手机3px，电脑5px */
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+.loader-dot:nth-child(2) {
+    animation-delay: 0.2s;
+    background-color: #f1c40f;
+}
+
+.loader-dot:nth-child(3) {
+    animation-delay: 0.4s;
+    background-color: #23a8fa;
+}
+
+.loader-text {
+    font-size: clamp(14px, 2vw, 20px);
+    /* 手机14px，电脑20px */
+    color: #e67e22;
+    font-weight: 600;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(clamp(-15px, 3vw, -20px));
+        /* 手机上移15px，电脑20px */
+    }
+}
+
+/* ==================== 头部样式 ==================== */
+.header {
+    position: relative;
+    width: 100%;
+    height: clamp(80vh, 100vh, 100vh);
+    /* 手机最小80vh，电脑100vh */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    z-index: -2;
+}
+
+.header-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("images/模糊背景.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
+}
+
+.header-content {
+    text-align: center;
+    color: #fff;
+    padding: 0 clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    z-index: 1;
+    animation: fadeInUp 1s ease;
+}
+
+.year-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+    margin-bottom: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: clamp(8px, 2vw, 10px) clamp(15px, 3vw, 25px);
+    /* 手机8/15px，电脑10/25px */
+    border-radius: clamp(30px, 8vw, 50px);
+    /* 手机30px，电脑50px */
+    backdrop-filter: blur(5px);
+    border: 2px solid #f1c40f;
+}
+
+.year-text {
+    font-size: clamp(18px, 5vw, 48px);
+    /* 手机18px，电脑48px */
+    font-weight: bold;
+    color: #f1c40f;
+}
+
+.zodiac-text {
+    font-size: clamp(12px, 2.5vw, 24px);
+    /* 手机12px，电脑24px */
+    font-weight: 600;
+}
+
+.main-title {
+    font-size: clamp(24px, 8vw, 72px);
+    /* 手机24px，电脑72px */
+    margin-bottom: clamp(10px, 3vw, 30px);
+    /* 手机10px，电脑30px */
+    text-shadow: 0 clamp(2px, 1vw, 4px) clamp(8px, 2vw, 12px) rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: clamp(14px, 3vw, 24px);
+    /* 手机14px，电脑24px */
+    margin-bottom: clamp(20px, 6vw, 60px);
+    /* 手机20px，电脑60px */
+    opacity: 0.9;
+    text-shadow: 0 clamp(1px, 0.5vw, 2px) clamp(6px, 1.5vw, 8px) rgba(0, 0, 0, 0.2);
+}
+
+.header-btn {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(clamp(20px, 4vw, 30px));
+        /* 手机下移20px，电脑30px */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(clamp(1.02, 1.05vw, 1.05));
+        /* 手机缩放1.02，电脑1.05 */
+    }
+}
+
+/* ==================== 新春祝福模块 ==================== */
+.blessing-section {
+    background-color: #fff;
+}
+
+.blessing-container {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 6vw, 60px);
+    /* 手机20px，电脑60px */
+    max-width: clamp(320px, 90vw, 1200px);
+    /* 手机320px，电脑1200px */
+    margin: 0 auto;
+    padding: 0 clamp(10px, 2vw, 20px);
+    /* 手机10px，电脑20px */
+}
+
+.blessing-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    box-shadow: 0 clamp(4px, 1.5vw, 8px) clamp(15px, 3vw, 24px) rgba(0, 0, 0, 0.1);
+}
+
+.blessing-slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.blessing-card {
+    min-width: 100%;
+    padding: clamp(15px, 4vw, 40px);
+    /* 手机15px，电脑40px */
+    background: linear-gradient(135deg, #f5eedc 0%, #fff9e8 100%);
+    border-radius: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    text-align: center;
+}
+
+.blessing-card-title {
+    font-size: clamp(16px, 3.5vw, 32px);
+    /* 手机16px，电脑32px */
+    color: #e67e22;
+    margin-bottom: clamp(10px, 3vw, 25px);
+    /* 手机10px，电脑25px */
+}
+
+.blessing-card-content {
+    font-size: clamp(14px, 3vw, 28px);
+    /* 手机14px，电脑28px */
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+}
+
+.blessing-card-author {
+    font-size: clamp(12px, 2vw, 18px);
+    /* 手机12px，电脑18px */
+    color: #666;
+    font-style: italic;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(30px, 5vw, 60px);
+    /* 手机30px，电脑60px */
+    height: clamp(30px, 5vw, 60px);
+    /* 手机30px，电脑60px */
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #e67e22;
+    font-size: clamp(16px, 3vw, 30px);
+    /* 手机16px，电脑30px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 clamp(2px, 1vw, 4px) clamp(6px, 1.5vw, 8px) rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.slider-btn:hover {
+    background-color: #fff;
+    transform: translateY(-50%) scale(clamp(1.05, 1.1vw, 1.1));
+    /* 手机缩放1.05，电脑1.1 */
+}
+
+.prev-btn {
+    left: clamp(5px, 2vw, 20px);
+    /* 手机5px，电脑20px */
+}
+
+.next-btn {
+    right: clamp(5px, 2vw, 20px);
+    /* 手机5px，电脑20px */
+}
+
+.custom-blessing {
+    background: linear-gradient(135deg, #fff9e8 0%, #f5eedc 100%);
+    padding: clamp(15px, 4vw, 40px);
+    /* 手机15px，电脑40px */
+    border-radius: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    box-shadow: 0 clamp(4px, 1.5vw, 8px) clamp(15px, 3vw, 24px) rgba(0, 0, 0, 0.1);
+}
+
+.custom-title {
+    font-size: clamp(16px, 3vw, 28px);
+    /* 手机16px，电脑28px */
+    color: #e67e22;
+    margin-bottom: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    text-align: center;
+}
+
+.blessing-input {
+    width: 100%;
+    height: clamp(80px, 20vw, 150px);
+    /* 手机80px，电脑150px */
+    padding: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+    border: 2px solid #f1c40f;
+    border-radius: clamp(6px, 1.5vw, 12px);
+    /* 手机6px，电脑12px */
+    font-size: clamp(14px, 2vw, 18px);
+    /* 手机14px，电脑18px */
+    line-height: 1.6;
+    resize: none;
+    background-color: #fff;
+    margin-bottom: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    transition: border-color 0.3s ease;
+}
+
+.blessing-input:focus {
+    border-color: #e67e22;
+    outline: none;
+}
+
+.generateBlessingBtn {
+    display: block;
+    margin: 0 auto clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+}
+
+.custom-blessing-card {
+    width: 100%;
+    min-height: clamp(150px, 40vw, 300px);
+    /* 手机150px，电脑300px */
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    border-radius: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    padding: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 clamp(4px, 1.5vw, 8px) clamp(15px, 3vw, 24px) rgba(230, 126, 34, 0.2);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.custom-blessing-card.show {
+    opacity: 1;
+}
+
+.custom-blessing-content {
+    font-size: clamp(16px, 3.5vw, 32px);
+    /* 手机16px，电脑32px */
+    line-height: 1.8;
+    text-shadow: 0 clamp(1px, 0.5vw, 2px) clamp(6px, 1.5vw, 8px) rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== 马年运势模块 ==================== */
+.fortune-section {
+    background: linear-gradient(135deg, #f8f5f0 0%, #f5eedc 100%);
+}
+
+.fortune-container {
+    max-width: clamp(320px, 90vw, 1200px);
+    /* 手机320px，电脑1200px */
+    margin: 0 auto;
+    padding: 0 clamp(10px, 2vw, 20px);
+    /* 手机10px，电脑20px */
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 6vw, 60px);
+    /* 手机20px，电脑60px */
+}
+
+.zodiac-selector {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: clamp(8px, 1.5vw, 10px);
+    /* 手机8px，电脑10px */
+}
+
+.zodiac-tabs {
+    display: flex;
+    gap: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+    width: max-content;
+    margin: 0 auto;
+}
+
+.zodiac-tab {
+    padding: clamp(6px, 1.5vw, 12px) clamp(10px, 3vw, 20px);
+    /* 手机6/10px，电脑12/20px */
+    background-color: #fff;
+    border-radius: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+    font-size: clamp(12px, 2vw, 16px);
+    /* 手机12px，电脑16px */
+    font-weight: 600;
+    color: #333;
+    box-shadow: 0 clamp(2px, 1vw, 4px) clamp(6px, 1.5vw, 8px) rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.zodiac-tab.active {
+    background: linear-gradient(90deg, #e67e22, #d35400);
+    color: #fff;
+}
+
+.zodiac-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 clamp(4px, 1.5vw, 6px) clamp(8px, 2vw, 12px) rgba(0, 0, 0, 0.15);
+}
+
+.fortune-card {
+    background-color: #fff;
+    border-radius: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    padding: clamp(15px, 4vw, 40px);
+    /* 手机15px，电脑40px */
+    box-shadow: 0 clamp(4px, 1.5vw, 8px) clamp(15px, 3vw, 24px) rgba(0, 0, 0, 0.1);
+}
+
+.fortune-header {
+    text-align: center;
+    margin-bottom: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+}
+
+.fortune-zodiac {
+    font-size: clamp(18px, 4vw, 36px);
+    /* 手机18px，电脑36px */
+    color: #e67e22;
+    margin-bottom: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+}
+
+.fortune-title {
+    font-size: clamp(14px, 3vw, 24px);
+    /* 手机14px，电脑24px */
+    color: #666;
+}
+
+.fortune-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 40vw, 280px), 1fr));
+    /* 手机最小180px，电脑280px */
+    gap: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+}
+
+.fortune-item {
+    background: linear-gradient(135deg, #f5eedc 0%, #fff9e8 100%);
+    border-radius: clamp(6px, 1.5vw, 12px);
+    /* 手机6px，电脑12px */
+    padding: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    border-left: clamp(3px, 1vw, 4px) solid #e67e22;
+    /* 手机3px，电脑4px */
+}
+
+.fortune-item-title {
+    font-size: clamp(14px, 2.5vw, 20px);
+    /* 手机14px，电脑20px */
+    color: #e67e22;
+    margin-bottom: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+    font-weight: 600;
+}
+
+.fortune-item-content {
+    font-size: clamp(12px, 2vw, 16px);
+    /* 手机12px，电脑16px */
+    line-height: 1.6;
+    color: #333;
+}
+
+.fortune-tips {
+    background-color: #fff;
+    border-radius: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    padding: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+    box-shadow: 0 clamp(4px, 1.5vw, 8px) clamp(15px, 3vw, 24px) rgba(0, 0, 0, 0.1);
+}
+
+.tips-title {
+    font-size: clamp(16px, 3vw, 24px);
+    /* 手机16px，电脑24px */
+    color: #e67e22;
+    margin-bottom: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    text-align: center;
+}
+
+.tips-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 40vw, 300px), 1fr));
+    /* 手机180px，电脑300px */
+    gap: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+}
+
+.tips-item {
+    padding: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+    background: linear-gradient(135deg, #fff9e8 0%, #f5eedc 100%);
+    border-radius: clamp(6px, 1.5vw, 12px);
+    /* 手机6px，电脑12px */
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(6px, 1.5vw, 12px);
+    /* 手机6px，电脑12px */
+}
+
+.tips-icon {
+    font-size: clamp(14px, 2.5vw, 22px);
+    /* 手机14px，电脑22px */
+    color: #f1c40f;
+    margin-top: 2px;
+}
+
+.tips-content {
+    font-size: clamp(12px, 2vw, 16px);
+    /* 手机12px，电脑16px */
+    line-height: 1.6;
+    color: #333;
+}
+
+/* ==================== 新春小游戏模块 ==================== */
+.game-section {
+    background: linear-gradient(135deg, #f5eedc 0%, #f8f5f0 100%);
+}
+
+.game-container {
+    max-width: clamp(320px, 95vw, 1400px);
+    /* 手机320px，电脑1400px */
+    margin: 0 auto;
+    padding: 0 clamp(10px, 2vw, 20px);
+    /* 手机10px，电脑20px */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 50vw, 450px), 1fr));
+    /* 手机280px，电脑450px */
+    gap: clamp(20px, 6vw, 60px);
+    /* 手机20px，电脑60px */
+}
+
+.game-card {
+    background-color: #fff;
+    border-radius: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    overflow: hidden;
+    box-shadow: 0 clamp(4px, 1.5vw, 8px) clamp(15px, 3vw, 24px) rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(clamp(-5px, 1.5vw, -8px));
+    /* 手机上移5px，电脑8px */
+    box-shadow: 0 clamp(8px, 2vw, 12px) clamp(20px, 4vw, 32px) rgba(0, 0, 0, 0.15);
+}
+
+.game-title {
+    font-size: clamp(16px, 3vw, 28px);
+    /* 手机16px，电脑28px */
+    color: #e67e22;
+    text-align: center;
+    padding: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    border-bottom: clamp(1px, 0.5vw, 2px) solid #f5eedc;
+    /* 手机1px，电脑2px */
+}
+
+.game-preview {
+    width: 100%;
+    height: clamp(120px, 30vw, 200px);
+    /* 手机120px，电脑200px */
+    overflow: hidden;
+}
+
+.game-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.game-card:hover .game-img {
+    transform: scale(clamp(1.03, 1.05vw, 1.05));
+    /* 手机缩放1.03，电脑1.05 */
+}
+
+.game-btn {
+    display: block;
+    width: clamp(70%, 80vw, 80%);
+    /* 手机70%，电脑80% */
+    margin: clamp(15px, 4vw, 30px) auto;
+    /* 手机15px，电脑30px */
+}
+
+/* 游戏弹窗 */
+.game-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: none;
+}
+
+.game-modal.show {
+    display: block;
+}
+
+.game-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(90%, 95vw, 900px);
+    /* 手机90%，电脑900px */
+    max-height: clamp(80vh, 90vh, 90vh);
+    /* 手机80vh，电脑90vh */
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    padding: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+    box-shadow: 0 clamp(8px, 2vw, 12px) clamp(20px, 4vw, 32px) rgba(0, 0, 0, 0.2);
+}
+
+.game-modal-close {
+    position: absolute;
+    top: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    right: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    width: clamp(25px, 4vw, 40px);
+    /* 手机25px，电脑40px */
+    height: clamp(25px, 4vw, 40px);
+    /* 手机25px，电脑40px */
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: #e67e22;
+    font-size: clamp(14px, 2.5vw, 22px);
+    /* 手机14px，电脑22px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.game-modal-close:hover {
+    background-color: #e67e22;
+    color: #fff;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    padding-bottom: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+    border-bottom: clamp(1px, 0.5vw, 2px) solid #f5eedc;
+    /* 手机1px，电脑2px */
+}
+
+.game-modal-title {
+    font-size: clamp(16px, 3vw, 28px);
+    /* 手机16px，电脑28px */
+    color: #e67e22;
+}
+
+.game-score {
+    font-size: clamp(12px, 2vw, 18px);
+    /* 手机12px，电脑18px */
+    color: #333;
+    font-weight: 600;
+    background-color: #f5eedc;
+    padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 15px);
+    /* 手机4/8px，电脑8/15px */
+    border-radius: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+}
+
+.game-area {
+    width: 100%;
+    height: clamp(200px, 50vw, 400px);
+    /* 手机200px，电脑400px */
+    background-color: #f8f5f0;
+    border-radius: clamp(6px, 1.5vw, 12px);
+    /* 手机6px，电脑12px */
+    margin-bottom: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 接红包游戏样式增强 */
+.player {
+    position: absolute;
+    bottom: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(40px, 10vw, 80px);
+    /* 手机40px，电脑80px */
+    height: clamp(40px, 10vw, 80px);
+    /* 手机40px，电脑80px */
+    background-image: url("images/盒子.png");
+    background-size: cover;
+    border-radius: 50%;
+    z-index: 10;
+    transition: left 0.1s ease;
+}
+
+.red-packet {
+    position: absolute;
+    top: -50px;
+    width: clamp(30px, 8vw, 60px);
+    /* 手机30px，电脑60px */
+    height: clamp(40px, 10vw, 70px);
+    /* 手机40px，电脑70px */
+    background-image: url("images/红包.png");
+    background-size: cover;
+    animation: fall linear;
+    transition: all 0.2s ease;
+}
+
+.red-packet:hover {
+    transform: scale(clamp(1.05, 1.1vw, 1.1));
+    /* 手机缩放1.05，电脑1.1 */
+}
+
+.obstacle {
+    position: absolute;
+    top: -50px;
+    width: clamp(30px, 8vw, 60px);
+    /* 手机30px，电脑60px */
+    height: clamp(30px, 8vw, 60px);
+    /* 手机30px，电脑60px */
+    background-image: url("images/炸弹.jpg");
+    background-size: cover;
+    animation: fall linear;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(clamp(200px, 50vw, 400px));
+        /* 手机下落200px，电脑400px */
+    }
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    padding: clamp(8px, 2vw, 10px);
+    /* 手机8px，电脑10px */
+    background-color: #f5eedc;
+    border-radius: clamp(8px, 2vw, 10px);
+    /* 手机8px，电脑10px */
+}
+
+.stat-item {
+    font-size: clamp(12px, 2vw, 16px);
+    /* 手机12px，电脑16px */
+    color: #e67e22;
+    font-weight: 600;
+}
+
+.game-rank {
+    margin-top: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    padding-top: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    border-top: clamp(1px, 0.5vw, 2px) solid #f5eedc;
+    /* 手机1px，电脑2px */
+}
+
+.rank-title {
+    font-size: clamp(14px, 2.5vw, 18px);
+    /* 手机14px，电脑18px */
+    color: #e67e22;
+    margin-bottom: clamp(8px, 2vw, 10px);
+    /* 手机8px，电脑10px */
+    text-align: center;
+}
+
+.rank-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6px, 1.5vw, 8px);
+    /* 手机6px，电脑8px */
+}
+
+.rank-list li {
+    padding: clamp(6px, 2vw, 8px) clamp(10px, 2.5vw, 15px);
+    /* 手机6/10px，电脑8/15px */
+    background-color: #fff;
+    border-radius: clamp(6px, 2vw, 8px);
+    /* 手机6px，电脑8px */
+    display: flex;
+    justify-content: space-between;
+    border-left: clamp(2px, 1vw, 3px) solid #f1c40f;
+    /* 手机2px，电脑3px */
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 20px);
+    /* 手机8px，电脑20px */
+    flex-wrap: wrap;
+}
+
+.game-control-btn {
+    flex: 1;
+    min-width: clamp(70px, 15vw, 120px);
+    /* 手机70px，电脑120px */
+}
+
+/* 猜灯谜游戏样式增强 */
+.riddle-progress {
+    margin-bottom: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+}
+
+.progress-bar {
+    width: 100%;
+    height: clamp(8px, 2vw, 10px);
+    /* 手机8px，电脑10px */
+    background-color: #eee;
+    border-radius: clamp(4px, 1vw, 5px);
+    /* 手机4px，电脑5px */
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #e67e22, #f1c40f);
+    width: 20%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: clamp(4px, 1vw, 5px);
+    /* 手机4px，电脑5px */
+    font-size: clamp(12px, 2vw, 14px);
+    /* 手机12px，电脑14px */
+    color: #666;
+}
+
+.riddle-question {
+    font-size: clamp(14px, 3vw, 24px);
+    /* 手机14px，电脑24px */
+    color: #e67e22;
+    text-align: center;
+    padding: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+    background-color: #f5eedc;
+    border-radius: clamp(6px, 1.5vw, 12px);
+    /* 手机6px，电脑12px */
+    margin-bottom: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+}
+
+.riddle-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 30vw, 200px), 1fr));
+    /* 手机120px，电脑200px */
+    gap: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+    margin-bottom: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+}
+
+.riddle-option {
+    padding: clamp(10px, 3vw, 20px);
+    /* 手机10px，电脑20px */
+    background-color: #fff;
+    border: clamp(1px, 0.5vw, 2px) solid #f1c40f;
+    /* 手机1px，电脑2px */
+    border-radius: clamp(6px, 1.5vw, 12px);
+    /* 手机6px，电脑12px */
+    font-size: clamp(12px, 2vw, 18px);
+    /* 手机12px，电脑18px */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.riddle-option:hover {
+    background-color: #f5eedc;
+}
+
+.riddle-option.correct {
+    background-color: #4CAF50;
+    color: #fff;
+    border-color: #4CAF50;
+}
+
+.riddle-option.incorrect {
+    background-color: #f44336;
+    color: #fff;
+    border-color: #f44336;
+}
+
+.riddle-feedback {
+    font-size: clamp(12px, 2vw, 18px);
+    /* 手机12px，电脑18px */
+    text-align: center;
+    padding: clamp(8px, 2vw, 15px);
+    /* 手机8px，电脑15px */
+    border-radius: clamp(6px, 1.5vw, 12px);
+    /* 手机6px，电脑12px */
+    margin-bottom: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+    display: none;
+}
+
+.riddle-feedback.show {
+    display: block;
+}
+
+.riddle-feedback.correct {
+    background-color: #e8f5e9;
+    color: #4CAF50;
+}
+
+.riddle-feedback.incorrect {
+    background-color: #ffebee;
+    color: #f44336;
+}
+
+.riddle-result {
+    display: none;
+    text-align: center;
+    padding: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    background-color: #f5eedc;
+    border-radius: clamp(8px, 2vw, 10px);
+    /* 手机8px，电脑10px */
+    margin-bottom: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+}
+
+.riddle-result.show {
+    display: block;
+}
+
+.result-title {
+    font-size: clamp(16px, 2.5vw, 20px);
+    /* 手机16px，电脑20px */
+    color: #e67e22;
+    margin-bottom: clamp(10px, 2.5vw, 15px);
+    /* 手机10px，电脑15px */
+}
+
+.result-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+}
+
+.result-item {
+    font-size: clamp(12px, 2vw, 16px);
+    /* 手机12px，电脑16px */
+    color: #333;
+    font-weight: 600;
+}
+
+/* 生肖消消乐游戏样式 */
+.match-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(8px, 2vw, 10px);
+    /* 手机8px，电脑10px */
+    padding: clamp(15px, 3vw, 20px);
+    /* 手机15px，电脑20px */
+    height: 100%;
+}
+
+.match-card {
+    background-color: #e67e22;
+    border-radius: clamp(6px, 1.5vw, 8px);
+    /* 手机6px，电脑8px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(20px, 5vw, 30px);
+    /* 手机20px，电脑30px */
+    color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: rotateY(0deg);
+}
+
+.match-card.flipped {
+    background-color: #f1c40f;
+    color: #fff;
+    transform: rotateY(180deg);
+}
+
+.match-card.matched {
+    background-color: #4CAF50;
+    color: #fff;
+    transform: rotateY(180deg) scale(clamp(0.9, 0.95vw, 0.95));
+    /* 手机缩放0.9，电脑0.95 */
+}
+
+/* ==================== 底部样式 ==================== */
+.footer {
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    color: #fff;
+    padding: clamp(30px, 8vw, 80px) 0 clamp(15px, 4vw, 40px);
+    /* 手机30/15px，电脑80/40px */
+}
+
+.footer-content {
+    max-width: clamp(320px, 90vw, 1200px);
+    /* 手机320px，电脑1200px */
+    margin: 0 auto;
+    padding: 0 clamp(10px, 2vw, 20px);
+    /* 手机10px，电脑20px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+}
+
+.footer-logo {
+    font-size: clamp(16px, 3vw, 28px);
+    /* 手机16px，电脑28px */
+    font-weight: bold;
+    color: #f1c40f;
+    text-shadow: 0 clamp(1px, 0.5vw, 2px) clamp(6px, 1.5vw, 8px) rgba(0, 0, 0, 0.2);
+}
+
+.footer-links {
+    display: flex;
+    gap: clamp(10px, 3vw, 25px);
+    /* 手机10px，电脑25px */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-link {
+    font-size: clamp(12px, 2vw, 16px);
+    /* 手机12px，电脑16px */
+    color: #fff;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    opacity: 1;
+    color: #f1c40f;
+}
+
+.footer-copyright {
+    font-size: clamp(10px, 1.5vw, 14px);
+    /* 手机10px，电脑14px */
+    opacity: 0.7;
+    text-align: center;
+}
+
+.back-to-top {
+    width: clamp(30px, 5vw, 50px);
+    /* 手机30px，电脑50px */
+    height: clamp(30px, 5vw, 50px);
+    /* 手机30px，电脑50px */
+    border-radius: 50%;
+    background-color: #f1c40f;
+    color: #e67e22;
+    font-size: clamp(14px, 2.5vw, 22px);
+    /* 手机14px，电脑22px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 clamp(2px, 1vw, 4px) clamp(6px, 1.5vw, 8px) rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: fixed;
+    bottom: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+    right: clamp(15px, 4vw, 30px);
+    /* 手机15px，电脑30px */
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: translateY(clamp(-3px, 1vw, -5px));
+    /* 手机上移3px，电脑5px */
+    box-shadow: 0 clamp(4px, 1.5vw, 6px) clamp(8px, 2vw, 12px) rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== 响应式适配（补充） ==================== */
+/* 平板适配 */
+@media screen and (max-width: 768px) {
+    .fortune-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tips-list {
+        grid-template-columns: 1fr;
+    }
+
+    .game-container {
+        grid-template-columns: 1fr;
+    }
+
+    .header-btn {
+        margin-top: clamp(15px, 3vw, 20px);
+    }
+
+    .section {
+        min-height: auto;
+        padding: clamp(20px, 6vw, 60px) 0;
+    }
+
+    .match-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* 手机横屏适配 */
+@media screen and (orientation: landscape) and (max-width: 768px) {
+    .header {
+        height: clamp(100vh, 120vh, 120vh);
+    }
+
+    .game-area {
+        height: clamp(150px, 40vw, 300px);
+    }
+}
+
+/* 小屏手机适配 */
+@media screen and (max-width: 480px) {
+    .year-logo {
+        flex-direction: column;
+        gap: clamp(6px, 1.5vw, 8px);
+        padding: clamp(6px, 2vw, 8px) clamp(15px, 3vw, 20px);
+    }
+
+    .slider-btn {
+        width: clamp(25px, 4vw, 40px);
+        height: clamp(25px, 4vw, 40px);
+        font-size: clamp(12px, 2.5vw, 20px);
+    }
+
+    .modal-content {
+        padding: clamp(10px, 3vw, 20px);
+    }
+
+    .game-modal-content {
+        padding: clamp(10px, 3vw, 20px);
+    }
+
+    .footer-links {
+        flex-direction: column;
+        text-align: center;
+        gap: clamp(8px, 2vw, 10px);
+    }
+
+    .match-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

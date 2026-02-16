@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生肖消消乐 - 马年新春小游戏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5eedc 0%, #f8f5f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .game-title {
+            font-size: clamp(24px, 5vw, 36px);
+            color: #e67e22;
+            margin-bottom: 10px;
+        }
+
+        /* 游戏规则提示样式 */
+        .game-tip {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        /* 返回按钮*/
+        .back-btn {
+            display: inline-block;
+            /* 行内块级，可设置宽高和边距 */
+            padding: 8px 20px;
+            /* 内边距，保证点击区域大小 */
+            background: linear-gradient(90deg, #e67e22, #d35400);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 分数显示区域*/
+        .game-score {
+            font-size: 20px;
+            color: #e67e22;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 15px;
+            background-color: #f5eedc;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        /* 游戏核心区域：响应式最小高度，浅背景，圆角，弹性布局居中内容 */
+        .game-area {
+            width: 100%;
+            min-height: clamp(300px, 70vw, 500px);
+            background-color: #f8f5f0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 消消乐网格布局：固定4列，适配全设备，最大宽度限制 */
+        .match-grid {
+            display: grid;
+            /* 网格布局 */
+            grid-template-columns: repeat(4, 1fr);
+            /* 固定4列，平均分配宽度 */
+            gap: 12px;
+            /* 卡片之间的间距 */
+            width: 100%;
+            height: 100%;
+            max-width: 600px;
+        }
+
+        /* 卡片默认样式：橙色渐变，圆角，3D翻牌效果基础，禁止文字显示 */
+        .match-card {
+            background: linear-gradient(90deg, #e67e22, #d35400);
+            /* 未翻转时的橙色渐变 */
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(24px, 6vw, 36px);
+            color: transparent;
+            /* 初始状态文字透明（隐藏生肖图标） ,其实拿鼠标画一下就能看见，我不想搞事件监听*/
+            cursor: pointer;
+            /* 鼠标悬浮为手型，提示可点击 */
+            transition: all 0.4s ease;
+            /* 所有属性变化的过渡动画，时长0.4秒 */
+            transform: rotateY(0deg);
+            /* 初始3D旋转角度（未翻转） */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 卡片翻转状态：黄色渐变，显示文字，3D旋转180度 */
+        .match-card.flipped {
+            background: linear-gradient(90deg, #f1c40f, #f39c12);
+            /* 翻转后的黄色渐变 */
+            color: #fff;
+            transform: rotateY(180deg);
+        }
+
+        /* 卡片配对成功状态：绿色渐变，缩小一点，禁止点击 */
+        .match-card.matched {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            /* 配对成功的绿色渐变 */
+            color: #fff;
+            transform: rotateY(180deg) scale(0.96);
+            /* 保持翻转状态，轻微缩小，突出配对成功 */
+            pointer-events: none;
+            /* 禁止点击，避免重复操作 */
+        }
+
+        /*游戏控制按钮*/
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 0 10px;
+        }
+
+        /* 控制按钮样式 */
+        .game-btn {
+            padding: 12px 28px;
+            background: linear-gradient(90deg, #e67e22, #d35400);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+            min-width: 100px;
+            transition: background 0.3s ease;
+            /* 背景色过渡动画 ,这个background为什么是红色的，他也不报错，*/
+        }
+
+        /* 按钮悬浮效果：反向渐变，提升交互反馈 */
+        .game-btn:hover {
+            background: linear-gradient(90deg, #d35400, #e67e22);
+            /* 反向橙色渐变 */
+        }
+
+        /* 按钮禁用状态：灰色背景，禁止点击光标，取消变换 */
+        .game-btn:disabled {
+            background: #ccc;
+            /* 灰色背景，提示不可用 */
+            cursor: not-allowed;
+            /* 禁止点击光标 */
+            transform: none;
+            /* 取消所有变换效果 */
+        }
+
+
+        /* 通关提示遮罩层：全屏覆盖，半透明背景，居中显示提示内容 */
+        .game-success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        /* 提示层显示状态 */
+        .game-success-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+            /* 允许点击按钮 */
+        }
+
+        /* 通关提示内容框：白色背景，圆角，内边距，文本居中 */
+        .success-content {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 通关标题：大号字体，橙色主题色 */
+        .success-title {
+            font-size: clamp(28px, 6vw, 36px);
+            color: #e67e22;
+            margin-bottom: 15px;
+        }
+
+        /* 得分显示：超大号字体，加粗，绿色 */
+        .success-score {
+            font-size: clamp(36px, 8vw, 48px);
+            color: #2ecc71;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* 重新开始按钮：橙色渐变，圆角，内边距，加粗 */
+        .restart-btn {
+            padding: 12px 30px;
+            background: linear-gradient(90deg, #e67e22, #d35400);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            /* 背景色过渡动画 ,这个background为什么是红色的，他也不报错，*/
+        }
+
+        .restart-btn:hover {
+            background: linear-gradient(90deg, #d35400, #e67e22);
+        }
+
+        /*小屏适配（响应式）*/
+        @media screen and (max-width: 480px) {
+            .match-grid {
+                gap: 8px;
+                /* 小屏缩小卡片间距，适配空间 */
+            }
+
+            .game-btn {
+                padding: 10px 20px;
+                /* 小屏缩小按钮内边距 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 游戏头部区域：返回按钮 + 标题 + 规则提示 -->
+    <div class="game-header">
+        <a href="main.html" class="back-btn">← 返回主页面</a>
+        <h1 class="game-title">生肖消消乐 🐴</h1>
+        <div class="game-tip">配对成功+20分，配对失败-5分（最低0分）</div>
+    </div>
+
+    <!-- 游戏主容器：分数显示 + 游戏区域 + 控制按钮 -->
+    <div class="game-container">
+        <div class="game-score" id="matchScore">得分：0</div>
+        <div class="game-area">
+            <div class="match-grid" id="matchGrid"></div>
+        </div>
+        <!-- 游戏控制按钮：开始/继续、暂停、重置 -->
+        <div class="game-controls">
+            <button class="game-btn" id="startMatchGame">开始</button>
+            <button class="game-btn" id="pauseMatchGame" disabled>暂停</button>
+            <button class="game-btn" id="resetMatchGame" disabled>重置</button>
+        </div>
+    </div>
+    <!-- 通关提示层（初始隐藏） -->
+    <div class="game-success-overlay" id="successOverlay">
+        <div class="success-content">
+            <div class="success-title">恭喜通关！🎉</div>
+            <div class="success-score" id="finalScore">最终得分：0</div>
+            <button class="restart-btn" id="restartBtn">再来一局</button>
+        </div>
+    </div>
+    <script src="jsp/game-match.js"></script>
+</body>
+
+</html>
